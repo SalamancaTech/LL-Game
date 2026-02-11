@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { GoogleGenAI, Modality } from "@google/genai";
 import { StatType, TimeSegment, Intent, GameState, Item, GameConfig, GameEngineResponse } from './types';
-import { INITIAL_GAME_STATE, ITEM_DATABASE, INITIAL_STATS, GAME_START_TEXT, TUTORIAL_START_TEXT, TUTORIAL_PHASE_1_CHOICES } from './constants';
+import { INITIAL_GAME_STATE, ITEM_DATABASE, INITIAL_STATS, GAME_START_TEXT, TUTORIAL_START_TEXT, TUTORIAL_PHASE_1_CHOICES, NPC_IMAGES } from './constants';
 import { advanceTime, calculateStats, constructGeminiPrompt, constructChoicePrompt } from './utils/mechanics';
 
 // --- Types & Interfaces ---
@@ -16,6 +16,7 @@ interface AppSettings {
   saveKeyLocally: boolean;
   devMode: boolean;
   layoutMode: boolean;
+  unlockAllNpcs: boolean;
   voiceName: string;
   autoplayAudio: boolean;
   customImages: {
@@ -721,8 +722,9 @@ const CentralPanel: React.FC<{
     setGameState: React.Dispatch<React.SetStateAction<GameState>>;
     layoutMode: boolean;
     devMode: boolean;
+    unlockAllNpcs: boolean;
     onGameAction: (text: string) => void;
-}> = ({ type, onClose, gameState, setGameState, layoutMode, devMode, onGameAction }) => {
+}> = ({ type, onClose, gameState, setGameState, layoutMode, devMode, unlockAllNpcs, onGameAction }) => {
     const [selectedItemIdx, setSelectedItemIdx] = useState<number | null>(null);
     const [selectedDevItem, setSelectedDevItem] = useState<Item | null>(null);
     const [selectedNpc, setSelectedNpc] = useState<string | null>(null);
@@ -1214,7 +1216,7 @@ const CentralPanel: React.FC<{
                                     {/* Polaroid Large */}
                                     <div className="bg-white p-3 pb-8 shadow-xl rotate-[-2deg] w-48 shrink-0">
                                         <div className="bg-gray-200 w-full aspect-square mb-2 border border-gray-300 flex items-center justify-center overflow-hidden">
-                                            <img src={`https://picsum.photos/seed/${selectedNpc}/400`} className="w-full h-full object-cover" alt={selectedNpc} />
+                                            <img src={NPC_IMAGES[selectedNpc] || `https://picsum.photos/seed/${selectedNpc}/400`} className="w-full h-full object-cover" alt={selectedNpc} />
                                         </div>
                                         <div className="text-black font-['Hachi_Maru_Pop'] font-bold text-center text-xl">{selectedNpc}</div>
                                     </div>
@@ -1264,7 +1266,7 @@ const CentralPanel: React.FC<{
                                 {/* Polaroid Grid */}
                                 <div className="grid grid-cols-3 gap-6 overflow-y-auto p-4 min-h-0">
                                     {npcDisplayList.map((name, idx) => {
-                                        const isUnlocked = unlockedNpcs.includes(name);
+                                        const isUnlocked = unlockAllNpcs || unlockedNpcs.includes(name);
                                         return (
                                             <div 
                                                 key={idx}
@@ -1278,7 +1280,7 @@ const CentralPanel: React.FC<{
                                             >
                                                 <div className="bg-gray-200 w-full aspect-square mb-2 border border-gray-300 flex items-center justify-center overflow-hidden relative">
                                                     {isUnlocked ? (
-                                                        <img src={`https://picsum.photos/seed/${name}/200`} className="w-full h-full object-cover" alt={name} />
+                                                        <img src={NPC_IMAGES[name] || `https://picsum.photos/seed/${name}/200`} className="w-full h-full object-cover" alt={name} />
                                                     ) : (
                                                         <span className="text-4xl text-gray-400 select-none">?</span>
                                                     )}
@@ -1672,7 +1674,7 @@ const SettingsModule: React.FC<{
          </div>
          
          {/* Dev Mode Toggle */}
-         <div className="flex items-center gap-8 pt-2 border-t border-gray-700">
+         <div className="flex flex-col gap-2 pt-2 border-t border-gray-700">
              <div className="flex items-center gap-2">
                 <input 
                     type="checkbox" 
@@ -1681,23 +1683,38 @@ const SettingsModule: React.FC<{
                     onChange={(e) => onUpdate({ 
                         devMode: e.target.checked,
                         // Turn off layout mode if dev mode is disabled
-                        layoutMode: e.target.checked ? settings.layoutMode : false 
+                        layoutMode: e.target.checked ? settings.layoutMode : false,
+                        unlockAllNpcs: e.target.checked ? settings.unlockAllNpcs : false
                     })}
                     className="w-4 h-4"
                 />
                 <label htmlFor="devModeToggle" className="text-sm font-bold text-yellow-400 select-none cursor-pointer">Enable Developer Mode</label>
              </div>
 
-             <div className="flex items-center gap-2">
-                <input 
-                    type="checkbox" 
-                    id="layoutModeToggle"
-                    checked={settings.layoutMode}
-                    disabled={!settings.devMode}
-                    onChange={(e) => onUpdate({ layoutMode: e.target.checked })}
-                    className="w-4 h-4 disabled:opacity-50 disabled:cursor-not-allowed"
-                />
-                <label htmlFor="layoutModeToggle" className={`text-sm font-bold select-none cursor-pointer ${!settings.devMode ? 'text-gray-500 cursor-not-allowed' : 'text-yellow-200'}`}>Layout Mode</label>
+             <div className="flex items-center gap-8 pl-6">
+                 <div className="flex items-center gap-2">
+                    <input 
+                        type="checkbox" 
+                        id="layoutModeToggle"
+                        checked={settings.layoutMode}
+                        disabled={!settings.devMode}
+                        onChange={(e) => onUpdate({ layoutMode: e.target.checked })}
+                        className="w-4 h-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                    />
+                    <label htmlFor="layoutModeToggle" className={`text-sm font-bold select-none cursor-pointer ${!settings.devMode ? 'text-gray-500 cursor-not-allowed' : 'text-yellow-200'}`}>Layout Mode</label>
+                 </div>
+
+                 <div className="flex items-center gap-2">
+                    <input 
+                        type="checkbox" 
+                        id="unlockNpcsToggle"
+                        checked={settings.unlockAllNpcs}
+                        disabled={!settings.devMode}
+                        onChange={(e) => onUpdate({ unlockAllNpcs: e.target.checked })}
+                        className="w-4 h-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                    />
+                    <label htmlFor="unlockNpcsToggle" className={`text-sm font-bold select-none cursor-pointer ${!settings.devMode ? 'text-gray-500 cursor-not-allowed' : 'text-yellow-200'}`}>Unlock All NPCs</label>
+                 </div>
              </div>
          </div>
       </div>
@@ -2061,6 +2078,7 @@ export default function App() {
     saveKeyLocally: false,
     devMode: false,
     layoutMode: false,
+    unlockAllNpcs: false,
     voiceName: 'Kore',
     autoplayAudio: false,
     customImages: { player: null, npc: null, location: null }
@@ -2076,6 +2094,7 @@ export default function App() {
           devMode: parsed.devMode || false,
           saveKeyLocally: parsed.saveKeyLocally || false,
           layoutMode: false, 
+          unlockAllNpcs: parsed.unlockAllNpcs || false,
           voiceName: parsed.voiceName || 'Kore',
           autoplayAudio: parsed.autoplayAudio || false,
           customImages: parsed.customImages || { player: null, npc: null, location: null },
@@ -2551,6 +2570,7 @@ export default function App() {
                         setGameState={setGameState} 
                         layoutMode={settings.layoutMode}
                         devMode={settings.devMode}
+                        unlockAllNpcs={settings.unlockAllNpcs}
                         onGameAction={(text) => processTurn(text, null)}
                     />
                 ) : (

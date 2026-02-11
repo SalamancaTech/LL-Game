@@ -61,6 +61,51 @@ $$$CHOICES$$$
 ["Choice 1", "Choice 2", "Choice 3", "Choice 4"]
 `;
 
+// --- NPC CONFIGURATION ---
+
+export const NPC_IMAGES: Record<string, string> = {
+  "Ramone": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_00_Ramone_01.png?raw=true",
+  "Ashley": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_02_Ashley_02.png?raw=true",
+  "Mitch": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_03_Mitch_02.png?raw=true",
+  "Marcus": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_04_Marcus_01.png?raw=true",
+  "Tiffany": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_05_Tiffany_01.png?raw=true",
+  "Alistar": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_06_Alistar_01.png?raw=true",
+  "Roxy": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_07_Roxy_01.png?raw=true",
+  "Tano": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_08_Tano_01.png?raw=true",
+  "The Agent": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_09_TheAgent_01.png?raw=true",
+  "Aric": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_10_Aric_01.png?raw=true",
+  "Finn": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_11_Finn_01.png?raw=true",
+  "Jax": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_12_Jax_01.png?raw=true",
+  "Veronica": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_13_Veronica_01.png?raw=true",
+  "Benji": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_14_Benji_01.png?raw=true",
+  "Cassian": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_15_Cassian_01.png?raw=true",
+  "Nova": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_16_Nova_01.png?raw=true",
+  "Esther": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_17_Esther_01.png?raw=true",
+  "The Stranger": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_18_TheStranger_01.png?raw=true",
+  "Brock": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_19_Brock_01.png?raw=true",
+  "Duke": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_20_Duke_01.png?raw=true",
+  "Jeb": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_21_Jeb_01.png?raw=true",
+  "Vic": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_22_Vic_01.png?raw=true",
+  "Kwame": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_23_Kwame_01.png?raw=true",
+  "Simone": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_24_Simone_01.png?raw=true",
+  "Tristan": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_25_Tristan_01.png?raw=true",
+  "Oscar": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_26_Oscar_01.png?raw=true",
+  "Rhiannon": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_27_Rhiannon_01.png?raw=true",
+  "Fern": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_28_Fern_01.png?raw=true",
+  "Jasper": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_29_Jasper_01.png?raw=true",
+  "Ranger Elias": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_30_RangerElias_01.png?raw=true",
+  "Ranger Skye": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_31_RangerSkye_01.png?raw=true",
+  "The Shadow": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_32_TheShadow_01.png?raw=true",
+  "The Roughneck": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_33_TheRoughneck_01.png?raw=true",
+  "Dorian": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_34_Dorian_01.png?raw=true",
+  "Sally": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_35_Sally_01.png?raw=true",
+  "Coach Elara": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_36_CoachElara_01.png?raw=true",
+  "Elana": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_37_Elana_01.png?raw=true",
+  "Nia": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_38_Nia_01.png?raw=true",
+  "Zachary": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_39_Zachary_01.png?raw=true",
+  "Helena": "https://github.com/SalamancaTech/LL-Game/blob/main/assets/NPCs/profiles/NPC_Profile_40_Helena_01.png?raw=true"
+};
+
 export const INITIAL_STATS: Record<StatType, number> = {
   [StatType.CONFIDENCE]: 10,
   [StatType.WILL]: 10,
@@ -77,6 +122,25 @@ export const INITIAL_STATS: Record<StatType, number> = {
   [StatType.MALE_GAZE]: 0,
   [StatType.FEMALE_JUDGE]: 0,
   [StatType.DANGER]: 0,
+};
+
+// Generate initial relationships. 
+// Known main characters have specific starting values. 
+// Everyone else in the Image Database gets initialized to 0.
+const STARTING_RELATIONSHIPS: Record<string, any> = {
+    "Mitch": { trust: 100, attraction: 0, familiarity: 100 },
+    "Ashley": { trust: 50, attraction: 0, familiarity: 50 },
+    "Veronica": { trust: 10, attraction: 0, familiarity: 0 },
+    "Jax": { trust: 10, attraction: 0, familiarity: 0 },
+};
+
+const initRelationships = () => {
+    const rels: Record<string, any> = {};
+    // Iterate over all available images to ensure every character exists in DB
+    Object.keys(NPC_IMAGES).forEach(name => {
+        rels[name] = STARTING_RELATIONSHIPS[name] || { trust: 0, attraction: 0, familiarity: 0 };
+    });
+    return rels;
 };
 
 export const INITIAL_GAME_STATE: GameState = {
@@ -100,12 +164,7 @@ export const INITIAL_GAME_STATE: GameState = {
   history: [
     { role: 'model', text: "Welcome to Lily's Life.\nPlease enter your API Key in Settings or Load a Game to begin." }
   ],
-  npcRelationships: {
-    Mitch: { trust: 100, attraction: 0, familiarity: 100 },
-    Ashley: { trust: 50, attraction: 0, familiarity: 50 },
-    Veronica: { trust: 10, attraction: 0, familiarity: 0 },
-    Jax: { trust: 10, attraction: 0, familiarity: 0 },
-  },
+  npcRelationships: initRelationships(),
 };
 
 export const ITEM_DATABASE: Item[] = [
