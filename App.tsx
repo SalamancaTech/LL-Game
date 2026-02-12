@@ -916,89 +916,58 @@ const CentralPanel: React.FC<{
     }, [gameState.inventory, invFilter, invSearch, invSort]);
 
 
-    // Region Data Structure
+    // Region Data Structure (Updated for New Map)
     const REGIONS: Record<string, string[]> = {
-        "Lily's Home": [
-            'home_lily_closet',
-            'home_lily_shower',
-            'home_lily_bedroom',
-            'home_mitch_livingroom',
-            'home_mitch_kitchen',
-            'home_mitch_bedroom',
-            'home_ashley_livingroom',
-            'home_ashley_streaming_nook',
-            'home_ashley_bedroom'
+        "Residents": [
+            'home_lily_closet', 'home_lily_shower', 'home_lily_bedroom',
+            'home_mitch_livingroom', 'home_mitch_kitchen', 'home_mitch_bedroom',
+            'home_ashley_livingroom', 'home_ashley_streaming_nook', 'home_ashley_bedroom'
         ],
-        "Neighborhood": [
-            'apt_feely',
-            'school_campus_quad',
-            'school_campus_library',
-            'school_campus_library_stacks',
-            'school_campus_business',
-            'school_campus_business_office',
-            'school_campus_art',
-            'school_campus_art_office',
-            'school_gym_office',
-            'wrestling_practice',
-            'cheer_practice',
-            'school_gym_locker_m',
-            'school_gym_locker_m_showers',
-            'school_gym_locker_f',
-            'school_gym_locker_f_showers',
-            'general_store_main_floor',
-            'shop_general_store_back_room'
-        ],
-        "City": [
-            // Hub Fitness
-            'gym_weight_room',
-            'gym_classroom',
-            'pool_deck',
-            'pool_jacuzzi',
-            'gym_lockers',
-            'gym_showers',
-            // Hub Diner
-            'hub_diner_counter',
-            'hub_diner_tables',
-            'hub_diner_booths',
-            'hub_diner_kitchen',
-            // Hub Laundromat
-            'hub_laundromat_counter',
-            'hub_laundromat_machines',
-            'hub_laundromat_office',
-            // Movie Theater
-            'movie_theater_lobby',
-            'movie_theater_counter',
-            'movie_theater_theater_1',
-            'movie_theater_theater_2',
-            'movie_theater_projection_room',
-            // Work Coffee Shop
-            'work_coffee_counter',
-            'work_coffee_tables',
-            'work_coffee_basement',
-            'work_coffee_manager_office',
-            'work_coffee_roof',
-            // Shops
-            'shop_boutique_cashier',
-            'shop_boutique_fitting',
-            'shop_pawn_counter',
-            'shop_pawn_back_room',
-            // Bar / Nightclub
-            'bar_sf_counter',
-            'bar_sf_tables',
-            'bar_sf_restroom',
-            'bar_sf_back_office',
-            'nightclub_entry',
-            'nightclub_dance_floor',
-            'nightclub_bar',
-            'nightclub_vip_lounge',
-            'nightclub_restroom',
-            // Factory
-            'factory_security',
-            'factory_boiler_room',
-            'hazard_factory_locker_m',
-            'factory_service_tunnels'
-        ]
+        "Apartments": ['apt_feely'],
+        "Diner": ['hub_diner_counter', 'hub_diner_tables', 'hub_diner_booths', 'hub_diner_kitchen'],
+        "General Store": ['general_store_main_floor', 'shop_general_store_back_room'],
+        "Coffee": ['work_coffee_counter', 'work_coffee_tables', 'work_coffee_basement', 'work_coffee_manager_office', 'work_coffee_roof'],
+        "Academics": ['school_campus_business', 'school_campus_business_office', 'school_campus_art', 'school_campus_art_office', 'school_campus_library', 'school_campus_library_stacks'],
+        "Quad": ['school_campus_quad'],
+        "Wrestling": ['wrestling_practice'],
+        "Cheer": ['cheer_practice'],
+        "Gym": ['school_gym_office', 'school_gym_locker_m', 'school_gym_locker_m_showers', 'school_gym_locker_f', 'school_gym_locker_f_showers', 'gym_weight_room', 'gym_classroom', 'gym_lockers', 'gym_showers'],
+        "Pool": ['pool_deck', 'pool_jacuzzi'],
+        "Boutique": ['shop_boutique_cashier', 'shop_boutique_fitting'],
+        "Theater": ['movie_theater_lobby', 'movie_theater_counter', 'movie_theater_theater_1', 'movie_theater_theater_2', 'movie_theater_projection_room'],
+        "Bar": ['bar_sf_counter', 'bar_sf_tables', 'bar_sf_restroom', 'bar_sf_back_office'],
+        "Night Club": ['nightclub_entry', 'nightclub_dance_floor', 'nightclub_bar', 'nightclub_vip_lounge', 'nightclub_restroom'],
+        "Laundromat": ['hub_laundromat_counter', 'hub_laundromat_machines', 'hub_laundromat_office'],
+        "Pawn": ['shop_pawn_counter', 'shop_pawn_back_room'],
+        "Factory": ['factory_security', 'factory_boiler_room', 'hazard_factory_locker_m', 'factory_service_tunnels'],
+        "Lake": [],
+        "Park & Trail": [],
     };
+
+    const MAP_ZONES = [
+        { id: 'Residents-Red', name: 'Residents', x: 0, y: 0, w: 8.33, h: 12.5 },
+        { id: 'Residents-Green', name: 'Residents', x: 8.33, y: 0, w: 8.33, h: 12.5 },
+        { id: 'Residents-Blue', name: 'Residents', x: 16.66, y: 0, w: 8.33, h: 12.5 },
+        { id: 'Diner', name: 'Diner', x: 29.16, y: 0, w: 16.66, h: 12.5 },
+        { id: 'Apartments', name: 'Apartments', x: 50, y: 0, w: 25, h: 12.5 },
+        { id: 'Lake', name: 'Lake', x: 79.16, y: 0, w: 20.83, h: 31.25 },
+        { id: 'GenStore', name: 'General Store', x: 0, y: 18.75, w: 25, h: 37.5 },
+        { id: 'Coffee', name: 'Coffee', x: 33.33, y: 18.75, w: 12.5, h: 18.75 },
+        { id: 'Academics', name: 'Academics', x: 50, y: 18.75, w: 25, h: 12.5 },
+        { id: 'Quad', name: 'Quad', x: 50, y: 31.25, w: 10.4, h: 15.6 },
+        { id: 'Wrestling', name: 'Wrestling', x: 60.4, y: 31.25, w: 14.6, h: 7.8 },
+        { id: 'Cheer', name: 'Cheer', x: 60.4, y: 39.1, w: 14.6, h: 7.8 },
+        { id: 'ParkTrail', name: 'Park & Trail', x: 79.16, y: 37.5, w: 20.83, h: 25 },
+        { id: 'Gym', name: 'Gym', x: 0, y: 62.5, w: 16.66, h: 18.75 },
+        { id: 'Pool', name: 'Pool', x: 0, y: 81.25, w: 16.66, h: 18.75 },
+        { id: 'Boutique', name: 'Boutique', x: 20.83, y: 62.5, w: 16.66, h: 25 },
+        { id: 'Theater', name: 'Theater', x: 37.5, y: 62.5, w: 20.83, h: 12.5 },
+        { id: 'Bar', name: 'Bar', x: 62.5, y: 62.5, w: 12.5, h: 18.75 },
+        { id: 'Pawn', name: 'Pawn', x: 20.83, y: 87.5, w: 16.66, h: 12.5 },
+        { id: 'NightClub', name: 'Night Club', x: 41.66, y: 81.25, w: 16.66, h: 18.75 },
+        { id: 'Laundromat', name: 'Laundromat', x: 62.5, y: 93.75, w: 12.5, h: 6.25 },
+        { id: 'Factory', name: 'Factory', x: 79.16, y: 68.75, w: 20.83, h: 31.25 },
+    ];
 
     const isPlayerInRegion = (region: string) => REGIONS[region]?.includes(gameState.location);
 
@@ -1410,48 +1379,36 @@ const CentralPanel: React.FC<{
                                  </div>
                              </div>
                         ) : (
-                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-6 h-full items-center">
-                                {Object.keys(REGIONS).map((region) => {
-                                    const isActiveRegion = isPlayerInRegion(region);
-                                    // Determine seed based on region name for consistent visuals
-                                    let seed = 'city';
-                                    if (region.includes('Home')) seed = 'home_exterior';
-                                    else if (region.includes('Neighborhood')) seed = 'suburbs';
-                                    else if (region.includes('City')) seed = 'metropolis';
-
-                                    return (
-                                        <div 
-                                            key={region}
-                                            onClick={() => setSelectedRegion(region)}
-                                            className={`aspect-[4/3] relative rounded-lg border-2 shadow-2xl cursor-pointer transition-all duration-300 overflow-hidden group
-                                                ${isActiveRegion 
-                                                    ? 'border-green-500 ring-2 ring-green-500/30 scale-105 z-10' 
-                                                    : 'border-gray-500 hover:border-white hover:scale-105 hover:z-10 grayscale hover:grayscale-0'}
-                                            `}
-                                        >
-                                            <img 
-                                                src={`https://picsum.photos/seed/${seed}/600/400`} 
-                                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                                alt={region}
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                                            
-                                            <div className="absolute bottom-0 left-0 right-0 p-4">
-                                                <h3 className="text-xl font-black text-white uppercase tracking-widest drop-shadow-lg mb-1">{region}</h3>
-                                                <div className="flex justify-between items-end">
-                                                    <span className="text-[10px] text-gray-300 font-bold bg-black/50 px-2 py-0.5 rounded uppercase">
-                                                        {REGIONS[region].length} Locations
-                                                    </span>
-                                                    {isActiveRegion && (
-                                                        <span className="text-[10px] font-bold text-green-400 bg-green-900/50 px-2 py-0.5 rounded border border-green-500 animate-pulse">
-                                                            CURRENT LOCATION
-                                                        </span>
-                                                    )}
+                             <div className="flex items-center justify-center w-full h-full p-2">
+                                <div className="relative w-full aspect-[3/2] bg-black shadow-2xl rounded-lg overflow-hidden border-2 border-gray-600">
+                                    <img
+                                        src="https://raw.githubusercontent.com/SalamancaTech/LL-Game/main/assets/Map/Map%20Locations/new-map-buttons.png"
+                                        className="w-full h-full object-cover"
+                                        alt="Map"
+                                    />
+                                    {MAP_ZONES.map((zone) => {
+                                        const isActiveRegion = isPlayerInRegion(zone.name);
+                                        return (
+                                            <button
+                                                key={zone.id}
+                                                onClick={() => setSelectedRegion(zone.name)}
+                                                className={`absolute transition-all duration-200 group hover:bg-white/10 ${isActiveRegion ? 'bg-green-500/20 border-2 border-green-500 animate-pulse' : ''}`}
+                                                style={{
+                                                    top: `${zone.y}%`,
+                                                    left: `${zone.x}%`,
+                                                    width: `${zone.w}%`,
+                                                    height: `${zone.h}%`
+                                                }}
+                                                title={zone.name}
+                                            >
+                                                {/* Hover Label */}
+                                                <div className="opacity-0 group-hover:opacity-100 absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full bg-black/80 text-white text-[10px] px-1 py-0.5 rounded whitespace-nowrap z-50 pointer-events-none transition-opacity">
+                                                    {zone.name}
                                                 </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
                              </div>
                         )}
                     </>
